@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#006E83</color>
+    <color name="colorPrimaryDark">#004654</color>
+    <color name="colorPrimaryFade">#F2F7FA</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="color_white">#FFFFFF</color>
+
+    <color name="black_80">#cc000000</color>
+    <color name="black_56">#8F000000</color>
+    <color name="black_36">#5d000000</color>
+    <color name="black_12">#1F000000</color>
+    <color name="black_08">#14000000</color>
+    <color name="white_12">#1FFFFFFF</color>
+    <color name="white_36">#5cffffff</color>
+    <color name="white_50">#80FFFFFF</color>
+    <color name="white_72">#B8FFFFFF</color>
+    <color name="white_64">#a3ffffff</color>
+
+    <color name="black">@android:color/black</color>
+    <color name="white">@android:color/white</color>
+    <color name="translucent_white">#aaffffff</color>
+    <color name="colorPrimaryForSplashScreen">#CA448B</color>
+    <color name="hot_pink">#ff6299</color>
+    <color name="dark_gray">#565656</color>
+    <color name="gray">#737071</color>
+    <color name="white_gray">#ededed</color>
+    <color name="black_gray">#262626</color>
+    <color name="deep_gray">#98908d</color>
+    <color name="medium_gray">#888888</color>
+    <color name="blackish_gray">#333333</color>
+    <color name="light_gray">#d5d5d5</color>
+    <color name="light_gray_2">#e7e7e7</color>
+    <color name="light_gray_3">#e6e6e6</color>
+    <color name="light_gray_4">#55e6e6e6</color>
+    <color name="light_gray_5">#d1d1d1</color>
+    <color name="light_gray_6">#D8D8D8</color>
+    <color name="group_item_bg_with_opacity">#AEf5f5f5</color>
+    <color name="coral_red">#ff4444</color>
+    <color name="peach">#ee507c</color>
+    <color name="navy">#213b55</color>
+    <color name="navy_dark">#1B2F43</color>
+    <color name="light_blue">#3399ff</color>
+    <color name="pdp_name_color">#232323</color>
+    <color name="plp_regular_price_color">#b4b4b4</color>
+    <color name="stone_gray">#828282</color>
+    <color name="half_transparent">#77ffffff</color>
+    <color name="grey_overlay">#70000000</color>
+    <color name="coffee">#a99090</color>
+    <color name="orange">#ff7744</color>
+    <color name="edit_text_background">#F6F6F6</color>
+    <color name="onBoardingMiddleSectionBackground">#fcfcfc</color>
+    <color name="color_shadow">#44000000</color>
+    <color name="silver_gray">#484848</color>
+    <color name="dark_silver_gray">#767676</color>
+    <color name="cement_gray">#848484</color>
+    <color name="smoke_gray">#cbcece</color>
+    <color name="milk_gray">#efefef</color>
+    <color name="green">#1AC581</color>
+    <color name="egg_yellow">#ffcc33</color>
+    <color name="three_percent_opacity">#08000000</color>
+    <color name="thirty_five_percent_opacity">#59000000</color>
+    <color name="four_percent_opacity">#0A000000</color>
+    <color name="fifty_percent_white_opacity">#7FFFFFFF</color>
+    <color name="twenty_percent_white_opacity">#34FFFFFF</color>
+    <color name="drawer_group_divider">#E5E5E5</color>
+    <color name="silver">#CCCCCC</color>
+
+    <!--Mobile Verification-->
+    <color name="tick_icon_color">#999999</color>
+    <color name="close_icon_color">#7D7D7D</color>
+
+    <!--Cart-->
+    <color name="cart_type_color">#a2a2a2</color>
+    <color name="blue_message_bar">#1c80fb</color>
+    <color name="cart_item_size_availability_text_color">#c60018</color>
+
+    <!--CheckOut-->
+    <color name="delivery_title_color">#372e2a</color>
+    <color name="edit_hint_color">#c9c9c9</color>
+    <color name="gold_brown">#ab7e27</color>
+    <color name="cancel_text_color">#4a4a4a</color>
+
+    <!--Browse-->
+    <color name="kids_bg_color">#fff9fc</color>
+    <color name="how_old_color">#6c6c6c</color>
+    <color name="boy_color">#23B4F3</color>
+    <color name="woman_color">#ff7caa</color>
+    <color name="man_color">#75c6ff</color>
+    <color name="home_color">#d0915b</color>
+    <color name="unknown_child">#8B7EEE</color>
+
+    <!-- Favourite Brands -->
+    <color name="fav_brands_banner_icon">#E2E2E2</color>
+    <color name="grey_slate">#BABABA</color>
+    <color name="very_light_grey">#F3F3F3</color>
+
+    <!--Facebook-->
+    <color name="face_book_color">#3c5a99</color>
+    <color name="translate_face_book_color">#aa3c5a99</color>
+
+    <!--Processing Payment-->
+    <color name="processing_bg_color">#ececec</color>
+
+    <!--Thanks-->
+    <color name="gray_dark">#6e6e73</color>
+    <color name="gray_bkg">#eeeeee</color>
+    <color name="kid_text_color">#c4c4c4</color>
+    <color name="kids_background">#FAFAFA</color>
+    <color name="home_boutique_background_color">#FFEAF4</color>
+    <color name="fav_shadow_color">#96000000</color>
+    <color name="border_gray">#e8e8e8</color>
+
+    <!-- Sign in or Join -->
+    <color name="discount_color">#F384BF</color>
+
+    <!-- Search -->
+    <color name="upcoming_boutique_icon">#7E7E83</color>
+    <color name="sign_in_pressed">#14314E</color>
+    <color name="sign_in_normal">#204265</color>
+    <color name="light_pink">#fff2f9</color>
+    <color name="cancel_overlay">#99ffffff</color>
+    <color name="divider_pink">#ffa3d4</color>
+    <color name="light_black">#222222</color>
+    <color name="cancel_reason_color">#757575</color>
+    <color name="cancel_reason_title_color">#555555</color>
+    <color name="cancel_radio">#5a5a5a</color>
+    <color name="prod_reco_title_color">#292220</color>
+    <color name="transparent_black">#56000000</color>
+    <color name="important_info_text">#6f6f6f</color>
+    <color name="full_transparent">#00000000</color>
+    <color name="smart_filter_item_bg_color">#b8e6e6e6</color>
+    <color name="category_group_sba_title_color">#dee1e8</color>
+    <color name="peach_light">#ee50a4</color>
+    <color name="soft_green">#62bd7f</color>
+    <color name="soft_white">#f5f5f5</color>
+    <color name="soft_gray">#e1e1e1</color>
+    <color name="input_gray">#FFDEE6E6</color>
+    <color name="button_green">#5fc73b</color>
+    <color name="button_gray">#cbcbcb</color>
+    <color name="blue">#FF1784C7</color>
+    <color name="boutique_blur">#AA000000</color>
+    <color name="search_cardbackground">#fbfbfb</color>
+    <color name="recent_search_background_shade">#FF000000</color>
+    <color name="delivery_status_bg_color">#f9f9f9</color>
+    <color name="dull_red">#eb5f59</color>
+    <color name="delivery_status_returned">#599feb</color>
+    <color name="order_detils_layout_background">#99f5f5f5</color>
+    <color name="an_version_background">#cd4991</color>
+    <color name="an_credits_text_color">#35b35d</color>
+    <color name="an_default_banner_color">#4cd0d0d0</color>
+    <color name="an_milestone_color">#d0d0d0</color>
+    <color name="greyish">#a4a4a4</color>
+    <color name="seventy_greyish">#B3a4a4a4</color>
+    <color name="warm_grey">#707070</color>
+    <color name="approved_blue">#00aff0</color>
+    <color name="seventy_five_transparent">#bfffffff</color>
+    <color name="gray_transparent">#cc333333</color>
+    <color name="gray_transparent_80">#cc000000</color>
+    <color name="gray_transparent_55">#8C000000</color>
+    <color name="collection_badge">#e53935</color>
+    <color name="collection_badge_bottom">#c12421</color>
+    <color name="toast_background">#BB000000</color>
+    <color name="colorPrimaryTranslucent">#F3ED54A4</color>
+
+    <color name="shopby_tile_background">#FDFDFD</color>
+    <color name="soft_white_80">#ccf5f5f5</color>
+
+    <color name="neutral_light300">#eff1f4</color>
+    <color name="neutral_light300_24">#3eeff1f4</color>
+    <color name="neutral_light300_60">#9aeff1f4</color>
+
+    <color name="neutral_light200">#f7f8fa</color>
+
+    <color name="blue_message">#4285f4</color>
+    <color name="subtitle_homepage">#8c000000</color>
+    <color name="divider_background">#1a000000</color>
+    <color name="banner_background">#EFF1F4</color>
+    <color name="banner_foreground">#40000000</color>
+    <color name="neutral_dark_800">#16202D</color>
+    <color name="neutral_dark_500">#3E4855</color>
+    <color name="region_tag_background">#99000000</color>
+    <color name="filter_qty_grey">#5C000000</color>
+    <color name="filter_section">#8f000000</color>
+    <color name="filter_search">#8e000000</color>
+    <color name="filters_loading_mask">#44000000</color>
+    <color name="itc_gray">#e8eaee</color>
+    <color name="footer_background">#2a3441</color>
+    <color name="notification_red">#eb1000</color>
+    <color name="credits_green">#00a84f</color>
+
+    <color name="primary_36">#5ded54a4</color>
+    <color name="primary_600">#e53190</color>
+    <color name="shadow_color">#3d000000</color>
+    <color name="message_blue">#E1F5FB</color>
+
+    <color name="selected_point">#8f3e4855</color>
+    <color name="unselected_point">#e8eaee</color>
+    <color name="warm_red">#f45d53</color>
+    <color name="snackbar_background">#404854</color>
+    <color name="blue_info_msg">#e3f9ff</color>
+    <color name="address_messagebar_color">#1fff3b0a</color>
+    <color name="inactive_bottom_button_color">#59ed54a4</color>
+    <color name="edd_border">#dfe1e6</color>
+    <color name="grey_button_background">#8fdfe1e6</color>
+    <color name="nps_text_background">#447cfa</color>
+    <color name="smilie">#f5bb53</color>
+    <color name="black_two">#0a000000</color>
+    <color name="colorPrimary_04">#0aed54a4</color>
+    <color name="promo_text_color">#0c884a</color>
+    <color name="item_level_messagebar">#1F09ade0</color>
+    <color name="amber_v500">#ed7100</color>
+
+    <color name="neutral_dark_500_92">#EB3E4855</color>
+</resources>
