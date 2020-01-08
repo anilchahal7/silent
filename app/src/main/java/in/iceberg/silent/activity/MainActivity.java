@@ -60,20 +60,21 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private GoogleApiClient mGoogleApiClient;
     private Double latitude = 0.00;
     private Double longitude = 0.00;
+    private String savedHomeAddress, savedOfficeAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String savedHomeAddress = AppRecordData.getHomeAddress();
-        String savedOfficeAddress = AppRecordData.getOfficeAddress();
+        savedHomeAddress = AppRecordData.getHomeAddress();
+        savedOfficeAddress = AppRecordData.getOfficeAddress();
 
         requestMultiplePermissions();
         mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(LocationServices.API)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
                 .build();
 
         checkLocation();
@@ -272,14 +273,24 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
     public void onHomeAddressClick(View view) {
-        setHomeAddress(latitude, longitude, true);
+        if (TextUtils.isNotNullOrEmpty(savedHomeAddress)) {
+            String header = "Home Address is already saved, Do you want to update the address?";
+            openDialog(header, true);
+        } else {
+            setAddress(latitude, longitude, true);
+        }
     }
 
     public void onOfficeAddressClick(View view) {
-        setHomeAddress(latitude, longitude, false);
+        if (TextUtils.isNotNullOrEmpty(savedOfficeAddress)) {
+            String header = "Office Address is already saved, Do you want to update the address?";
+            openDialog(header, false);
+        } else {
+            setAddress(latitude, longitude, false);
+        }
     }
 
-    private void setHomeAddress(Double latitude, Double longitude, boolean isHomeAddress) {
+    private void setAddress(Double latitude, Double longitude, boolean isHomeAddress) {
         Geocoder geocoder;
         List<Address> addresses;
         geocoder = new Geocoder(this, Locale.getDefault());
@@ -298,5 +309,22 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void openDialog(String header, boolean isHomeAddress) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage(header);
+        alertDialogBuilder.setPositiveButton("Yes",
+            (arg0, arg1) -> {
+                if (isHomeAddress) {
+                    setAddress(latitude, longitude, true);
+                } else {
+                    setAddress(latitude, longitude, false);
+                }
+        });
+        alertDialogBuilder.setNegativeButton("No", (dialog, which) ->
+                dialog.cancel());
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 }
