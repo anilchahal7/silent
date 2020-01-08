@@ -1,7 +1,5 @@
 package in.iceberg.silent.activity;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -19,18 +17,15 @@ import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.Task;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -45,22 +40,20 @@ import in.iceberg.silent.R;
 import in.iceberg.silent.database.AppRecordData;
 import in.iceberg.silent.util.TextUtils;
 
-public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener, LocationListener {
-
-    private static final String TAG = "MainActivity";
+public class MainActivity extends AppCompatActivity {
 
     private int onDoNotDisturb = 1000;
-    AudioManager audioManager;
+    private AudioManager audioManager;
     private Switch homeAddressSwitch;
     private Switch officeAddressSwitch;
     private TextView homeAddressTextView;
     private TextView officeAddressTextView;
 
-    private GoogleApiClient mGoogleApiClient;
     private Double latitude = 0.00;
     private Double longitude = 0.00;
     private String savedHomeAddress, savedOfficeAddress;
+
+    private FusedLocationProviderClient fusedLocationProviderClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,13 +63,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         savedHomeAddress = AppRecordData.getHomeAddress();
         savedOfficeAddress = AppRecordData.getOfficeAddress();
 
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         requestMultiplePermissions();
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addApi(LocationServices.API)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .build();
-
         checkLocation();
 
         homeAddressSwitch = findViewById(R.id.home_address_simple_switch);
@@ -92,8 +80,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     android.provider.Settings
                             .ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
             startActivityForResult(intent, onDoNotDisturb);
-        } else {
-            setRingerMode(false);
         }
         if (TextUtils.isNotNullOrEmpty(savedHomeAddress)) {
             homeAddressTextView.setText(savedHomeAddress);
@@ -128,80 +114,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         }
     }
 
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
-        if (ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this,
-                        Manifest.permission.ACCESS_COARSE_LOCATION) !=
-                        PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        startLocationUpdates();
-        Location mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        if(mLocation == null){
-            startLocationUpdates();
-        }
-        if (mLocation == null) {
-            Toast.makeText(this, "Location not Detected", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    protected void startLocationUpdates() {
-        LocationRequest mLocationRequest = LocationRequest.create()
-                .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)
-                .setInterval(2000)
-                .setFastestInterval(2000)
-                .setSmallestDisplacement(200);
-        if (ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this,
-                        Manifest.permission.ACCESS_COARSE_LOCATION) !=
-                        PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
-                mLocationRequest, this);
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-        Log.i(TAG, "Connection Suspended");
-        mGoogleApiClient.connect();
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Log.i(TAG, "Connection failed. Error: " + connectionResult.getErrorCode());
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (mGoogleApiClient != null) {
-            mGoogleApiClient.connect();
-        }
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (mGoogleApiClient.isConnected()) {
-            mGoogleApiClient.disconnect();
-        }
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
-        String msg = "Updated Location: " +
-                location.getLatitude() + "," +
-                location.getLongitude();
-        latitude = location.getLatitude();
-        longitude = location.getLongitude();
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-    }
-
-    private void  requestMultiplePermissions(){
+    private void requestMultiplePermissions(){
         Dexter.withActivity(this)
             .withPermissions(
                     Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -210,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 @Override
                 public void onPermissionsChecked(MultiplePermissionsReport report) {
                     if (report.areAllPermissionsGranted()) {
-                        Toast.makeText(getApplicationContext(), "All permissions are granted by user!", Toast.LENGTH_SHORT).show();
+                        onConnectionSet();
                     }
                     if (report.isAnyPermissionPermanentlyDenied()) {
                         openSettingsDialog();
@@ -224,6 +137,27 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             withErrorListener(error -> Toast.makeText(getApplicationContext(), "Some Error! ", Toast.LENGTH_SHORT).show())
             .onSameThread()
             .check();
+    }
+
+    private void onConnectionSet() {
+        if (ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this,
+                        Manifest.permission.ACCESS_COARSE_LOCATION) !=
+                        PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        if (fusedLocationProviderClient != null) {
+            Task<Location> task = fusedLocationProviderClient.getLastLocation();
+            task.addOnSuccessListener(location -> {
+                if(location == null) {
+                    Toast.makeText(this, "Location not Detected", Toast.LENGTH_SHORT).show();
+                } else {
+                    latitude = location.getLatitude();
+                    longitude = location.getLongitude();
+                }
+            });
+        }
     }
 
     private void openSettingsDialog() {
