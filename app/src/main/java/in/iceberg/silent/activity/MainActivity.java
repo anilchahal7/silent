@@ -18,6 +18,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.HapticFeedbackConstants;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -35,10 +37,12 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import in.iceberg.silent.R;
 import in.iceberg.silent.database.AppRecordData;
 import in.iceberg.silent.util.TextUtils;
+import in.iceberg.silent.util.ToastHelper;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -52,6 +56,10 @@ public class MainActivity extends AppCompatActivity {
     private Double latitude = 0.00;
     private Double longitude = 0.00;
     private String savedHomeAddress, savedOfficeAddress;
+
+    private int backPressCount = 2;
+    private long lastBackPressTimeStamp = 0;
+    public static final int BACK_PRESS_INTERVAL = 5000;
 
     private FusedLocationProviderClient fusedLocationProviderClient;
 
@@ -97,6 +105,43 @@ public class MainActivity extends AppCompatActivity {
                     HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING);
             setRingerMode(b);
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        long now = System.nanoTime();
+        long backPressTimeStampDiff = now - lastBackPressTimeStamp;
+        if (lastBackPressTimeStamp != 0 && TimeUnit.NANOSECONDS.toMillis(backPressTimeStampDiff) >
+                BACK_PRESS_INTERVAL) {
+            backPressCount = 2;
+        }
+        if (backPressCount >= 2) {
+            lastBackPressTimeStamp = System.nanoTime();
+            ToastHelper.showToast(getApplicationContext(), getString(R.string.exit_app_message), ToastHelper.TOAST_SHORT);
+            backPressCount--;
+        } else {
+            this.finish();
+            finishAffinity();
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.home_page_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.settings) {
+            Intent intent = new Intent(this, SettingPageActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.enter, R.anim.exit);
+            return super.onOptionsItemSelected(item);
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
     }
 
     private void setRingerMode(boolean status) {
@@ -242,6 +287,7 @@ public class MainActivity extends AppCompatActivity {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            Toast.makeText(this, "Check Your Net Connection", Toast.LENGTH_LONG).show();
         }
     }
 
