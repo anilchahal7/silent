@@ -17,9 +17,9 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/splash_app_logo_image"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="50dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
         android:src="@mipmap/ic_launcher_round"
         android:layout_centerHorizontal="true"
         app:civ_border_width="1dp"
@@ -27,7 +27,7 @@
         app:civ_border_color="@color/translucent_white"/>
 
     <TextView
-        android:id="@+id/student_attendance_app_text"
+        android:id="@+id/dnd_app_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
@@ -49,8 +49,9 @@
         android:layout_marginTop="36dp"
         card_view:cardCornerRadius="8dp"
         card_view:cardElevation="5dp"
+        android:onClick="onDNDStartTimeClick"
         card_view:cardUseCompatPadding="false"
-        android:layout_below="@id/student_attendance_app_text">
+        android:layout_below="@id/dnd_app_text">
 
         <RelativeLayout
             android:id="@+id/time_button_layout"
@@ -75,7 +76,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/change_dnd_time"
+                android:text="@string/change_dnd_start_time"
                 android:textAlignment="center"
                 android:gravity="center"
                 android:textSize="20sp"
@@ -93,7 +94,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/change_time_card_view"
         android:layout_alignParentStart="true"
-        android:text="@string/current_dnd_time"
+        android:text="@string/dnd_start_time"
         android:textSize="20sp"
         android:layout_marginTop="20dp"
         android:layout_marginStart="50dp"
@@ -104,6 +105,80 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/change_time_card_view"
+        android:layout_centerHorizontal="true"
+        android:layout_toEndOf="@id/default_time_text_view"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:textColor="@color/black_80" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/dnd_end_time_card_view"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="70dp"
+        card_view:cardCornerRadius="8dp"
+        card_view:cardElevation="5dp"
+        android:onClick="onDNDEndTimeClick"
+        card_view:cardUseCompatPadding="false"
+        android:layout_below="@id/default_time_text_view">
+
+        <RelativeLayout
+            android:id="@+id/dnd_end_time_button_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/colorPrimary" />
+
+            <ImageView
+                android:id="@+id/dnd_end_time_image_view"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_access_time_black_24dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="24dp"
+                android:contentDescription="@string/app_name" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/change_dnd_end_time"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:layout_marginStart="30dp"
+                android:layout_toEndOf="@id/dnd_end_time_image_view"
+                android:textColor="@color/colorPrimary"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/dnd_time_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dnd_end_time_card_view"
+        android:layout_alignParentStart="true"
+        android:text="@string/dnd_end_time"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="50dp"
+        android:textColor="@color/colorPrimary" />
+
+    <TextView
+        android:id="@+id/dnd_end_time_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dnd_end_time_card_view"
         android:layout_centerHorizontal="true"
         android:layout_toEndOf="@id/default_time_text_view"
         android:textSize="20sp"
