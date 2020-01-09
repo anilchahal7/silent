@@ -3,8 +3,10 @@
     <string name="home">Home</string>
     <string name="office">Office</string>
     <string name="do_not_disturb">Do Not Disturb</string>
-    <string name="current_dnd_time">Current DND Time</string>
-    <string name="change_dnd_time">Change DND Time</string>
     <string name="exit_app_message">Press Back again to exit</string>
+    <string name="change_dnd_start_time">Change DND Start Time</string>
+    <string name="dnd_start_time">DND Start Time</string>
+    <string name="change_dnd_end_time">Change DND End Time</string>
+    <string name="dnd_end_time">DND End Time</string>
     <string name="settings">Settings</string>
 </resources>
